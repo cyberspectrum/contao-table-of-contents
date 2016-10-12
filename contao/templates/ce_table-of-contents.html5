@@ -1,0 +1,6 @@
+<aside class="<?= $this->class ?> article-toc"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+    <div class="article-toc-container">
+        <<?= $this->hl ?> aria-controls="article-toc-list" id="article-toc-label"><?= $this->headline ?></<?= $this->hl ?>>
+        <?= \CyberSpectrum\TableOfContents\Content\TableOfContents::PLACE_HOLDER ?>
+    </div>
+</aside>

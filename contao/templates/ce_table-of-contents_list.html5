@@ -1,0 +1,9 @@
+<ol id="article-toc-list">
+    <?php foreach ($this->linkList as $id => $label): ?>
+        <li class="article-toc-item">
+            <a href="<?= \Environment::get('request') . '#' . $id ?>" class="article-toc-link">
+                <?= $label ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ol>
