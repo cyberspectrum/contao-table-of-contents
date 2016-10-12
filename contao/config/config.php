@@ -18,3 +18,5 @@
  */
 
 $GLOBALS['TL_CTE']['texts']['table-of-contents'] = 'CyberSpectrum\TableOfContents\Content\TableOfContents';
+
+$GLOBALS['TL_HOOKS']['compileArticle'][] = [\CyberSpectrum\TableOfContents\Hook\ParseArticle::class, 'compileArticle'];
