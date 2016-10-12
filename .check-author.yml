@@ -1,0 +1,8 @@
+ignore:
+
+exclude:
+  languages
+
+mapping:
+
+copy-left:
