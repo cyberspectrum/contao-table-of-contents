@@ -101,7 +101,7 @@ class ElementProcessor
                     /** @var \DOMElement $headline */
                     $id = $headline->getAttribute('id');
                     if (!$id) {
-                        $id = standardize($headline->textContent);
+                        $id  = standardize($headline->textContent);
                         $pre = (string) $doc->saveHTML($headline);
                         $headline->setAttribute('id', $id);
                         $elements[$key] = str_replace($pre, $doc->saveHTML($headline), $elements[$key]);
