@@ -85,7 +85,7 @@ class ElementProcessorTest extends \PHPUnit_Framework_TestCase
                     '<h2 id="lvl1.1">testing makes sense</h2>',
                 ]
             ],
-            [ // #1
+            [ // #2
                 // expected result headlines.
                 [
                     'lvl1' => 'testing',
@@ -96,6 +96,21 @@ class ElementProcessorTest extends \PHPUnit_Framework_TestCase
                 [
                     TableOfContents::PLACE_HOLDER,
                     '<h1 id="lvl1">testing</h1>',
+                    '<h2 id="lvl1.1">testing makes sense</h2>',
+                    '<h1>auto generated Id</h1>',
+                ]
+            ],
+            [ // #3
+                // expected result headlines.
+                [
+                    'lvl1' => 'testing äöü',
+                    'lvl1.1' => 'testing makes sense',
+                    'auto-generated-id' => 'auto generated Id',
+                ],
+                // input buffer
+                [
+                    TableOfContents::PLACE_HOLDER,
+                    '<h1 id="lvl1">testing äöü</h1>',
                     '<h2 id="lvl1.1">testing makes sense</h2>',
                     '<h1>auto generated Id</h1>',
                 ]
@@ -123,27 +138,58 @@ class ElementProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test data provider for testIdGetsAdded()
+     *
+     * @return array
+     */
+    public function testIdGetsAddedProvider()
+    {
+        return [
+            // #1
+            [
+                // Expected Result.
+                [
+                    'TOC',
+                    '<h1 id="auto-generated-id">auto generated Id</h1>',
+                ],
+                // Input buffer
+                [
+                    TableOfContents::PLACE_HOLDER,
+                    '<h1>auto generated Id</h1>',
+                ]
+            ],
+            // #2
+            [
+                // Expected Result.
+                [
+                    'TOC',
+                    '<h1 id="with-uemlaut">with Ümlaut</h1>',
+                ],
+                // Input buffer
+                [
+                    TableOfContents::PLACE_HOLDER,
+                    '<h1>with Ümlaut</h1>',
+                ]
+            ],
+        ];
+    }
+
+    /**
      * Test that an id get's added if none present.
      *
+     * @param array $expected The expected result elements.
+     *
+     * @param array $input    The input elements.
+     *
      * @return void
+     *
+     * @dataProvider testIdGetsAddedProvider
      */
-    public function testIdGetsAdded()
+    public function testIdGetsAdded($expected, $input)
     {
         $renderer = $this->getMockForAbstractClass(TableRendererInterface::class);
         $renderer->expects($this->once())->method('render')->willReturn('TOC');
 
-        $this->assertSame(
-            [
-                'TOC',
-                '<h1 id="auto-generated-id">auto generated Id</h1>',
-            ],
-            ElementProcessor::processElements(
-                [
-                    TableOfContents::PLACE_HOLDER,
-                    '<h1>auto generated Id</h1>',
-                ],
-                $renderer
-            )
-        );
+        $this->assertSame($expected, ElementProcessor::processElements($input, $renderer));
     }
 }

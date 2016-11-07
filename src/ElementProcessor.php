@@ -92,7 +92,7 @@ class ElementProcessor
 
             $doc = new \DOMDocument();
             libxml_use_internal_errors(true);
-            $doc->loadHTML($element);
+            $doc->loadHTML(mb_convert_encoding($element, 'HTML-ENTITIES', 'UTF-8'));
             libxml_clear_errors();
 
             for ($level = 0; $level < 6; $level++) {
