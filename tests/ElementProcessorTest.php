@@ -115,6 +115,34 @@ class ElementProcessorTest extends \PHPUnit_Framework_TestCase
                     '<h1>auto generated Id</h1>',
                 ]
             ],
+            [ // #4
+                // expected result headlines.
+                [
+                    'test-with-whitespace' => 'Test with whitespace',
+                ],
+                // input buffer
+                [
+                    TableOfContents::PLACE_HOLDER,
+                    '<h1 class="ce_headline">
+  Test with whitespace</h1>
+',
+                ]
+            ],
+            [ // #5
+                // expected result headlines.
+                [
+                    'test-head-with-uemlaut' => 'test head with Ümlaut',
+                ],
+                // input buffer
+                [
+                    TableOfContents::PLACE_HOLDER,
+                    '<aside class="ce_some_element block">
+          <p style="color: #880000;">testing content before</p>
+<h3>test head with Ümlaut</h3>
+<p style="color: #880000;">more content</p><br>
+</aside>',
+                ]
+            ],
         ];
     }
 

@@ -107,7 +107,7 @@ class ElementProcessor
                         $elements[$key] = str_replace($pre, $doc->saveHTML($headline), $elements[$key]);
                     }
 
-                    $headlines[$id] = $headline->textContent;
+                    $headlines[$id] = trim($headline->textContent);
                 }
             }
             unset($doc);
